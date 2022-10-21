@@ -1,8 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
 
@@ -12,18 +10,15 @@ public class Main {
         // TODO : plus propre via ressource ?
         String inFileName = "C:\\Users\\DAM_004\\IdeaProjects\\IOSpliter\\src\\main\\resources\\ProductData.csv";
 
-
-        BufferedReader inFile;
-        try {
-            inFile = new BufferedReader(new FileReader(inFileName));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
+//        InputStream f = Main.class.getResourceAsStream("ProductData.csv");
         ArrayList<Product> productList = new ArrayList<>();
         String l;
 
+        BufferedReader inFile=null;
         try {
+            inFile = new BufferedReader(new FileReader(inFileName));
+            // TODO inFile = new BufferedReader(f);
+
             while ((l = inFile.readLine()) != null) {
                 String t[] = l.split(";");
                 int id = Integer.parseInt(t[0]);
@@ -31,15 +26,25 @@ public class Main {
                 int price = Integer.parseInt(t[2]);
                 productList.add(new Product(id, name, price));
             }
+            for(Product p:productList){
+                System.out.println("ID = " + p.getId() + "/"
+                        + "NOM = " + p.getName() + "/"
+                        + "PRIX = " + p.getPrice()
+                );
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (inFile != null) {
+                try {
+                    inFile.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        for(Product p:productList){
-            System.out.println("ID = " + p.getId() + "/"
-                            + "NOM = " + p.getName() + "/"
-                            + "PRIX = " + p.getPrice()
-            );
-        }
+
+
     }
 
 }
