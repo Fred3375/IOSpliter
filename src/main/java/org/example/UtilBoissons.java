@@ -73,7 +73,7 @@ public class UtilBoissons implements iListUtils {
 
 
 //            inFile = new BufferedReader(new FileReader(inFileName));
-//            inFile = new BufferedReader(new FileReader(String.valueOf(this.getClass().getResource("ProductData.csv"))));
+//            inFile = new BufferedReader(new FileReader(String.valueOf(this.getClass().getResource("BoissonData.csv"))));
 /*
             URL resource = getClass().getClassLoader().getResource(resName);
             inFile = new BufferedReader(new FileReader(String.valueOf(resource)));
