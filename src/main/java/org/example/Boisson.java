@@ -1,6 +1,6 @@
 package org.example;
 
-public class Product {
+public class Boisson implements Comparable {
     private int id;
     private String name;
     private int price;
@@ -29,12 +29,18 @@ public class Product {
         this.price = price;
     }
 
-    public Product() {
+    public Boisson() {
     }
 
-    public Product(int id, String name, int price) {
+    public Boisson(int id, String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Boisson o1 = (Boisson) o;
+        return this.name.compareTo(o1.name);
     }
 }

@@ -1,47 +1,24 @@
 package org.example;
 
-import java.io.*;
-import java.nio.Buffer;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
 
         // TODO : plus propre via ressource ?
-        String inFileName = "C:\\Users\\DAM_004\\IdeaProjects\\IOSpliter\\src\\main\\resources\\ProductData.csv";
 
-//        InputStream f = Main.class.getResourceAsStream("ProductData.csv");
-        ArrayList<Product> productList = new ArrayList<>();
-        String l;
+        // String inFileName = "C:\\Users\\DAM_004\\IdeaProjects\\IOSpliter\\src\\main\\resources\\ProductData.csv";
+        String resName = "ProductData.csv";
+        ArrayList<Boisson> boissonListe = new ArrayList<>();
+        UtilBoissons util = new UtilBoissons();
+//        productListe.loadFromFile(inFileName);
+        boissonListe = util.loadFromFile(resName);
+        util.display(boissonListe);
+        List<String> sortedList = new ArrayList<>();
+        sortedList = util.getNameListSortedByName(boissonListe);
 
-        BufferedReader inFile=null;
-        try {
-            inFile = new BufferedReader(new FileReader(inFileName));
-            // TODO inFile = new BufferedReader(f);
-
-            while ((l = inFile.readLine()) != null) {
-                String t[] = l.split(";");
-                int id = Integer.parseInt(t[0]);
-                String name = t[1];
-                int price = Integer.parseInt(t[2]);
-                productList.add(new Product(id, name, price));
-            }
-            for(Product p:productList){
-                System.out.println("ID = " + p.getId() + "/"
-                        + "NOM = " + p.getName() + "/"
-                        + "PRIX = " + p.getPrice()
-                );
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (inFile != null) {
-                try {
-                    inFile.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        for(String s:sortedList) {
+            System.out.println(s);
         }
 
 
@@ -52,3 +29,22 @@ public class Main {
 //C:\Users\DAM_004\IdeaProjects\IOSpliter\src\main\resources\ProductData.csv
 //        String inFileName = "~/IdeaProjects/IOSpliter/src/main/resources/ProductData.csv";
 //        BufferedReader in = new BufferedReader(new FileReader(inFileName.replace("\\", "/")));
+//        InputStream f = Main.class.getResourceAsStream("ProductData.csv");
+
+/*
+        Product product = new Product(1,"titi",100);
+        TreeSet<String> hs = new TreeSet<>();
+        hs.add("toto");
+        hs.add("titi");
+        hs.add("tutu");
+        hs.stream().filter(s -> )
+*/
+
+/*
+        hs.add(44);
+        hs.add(44);
+        hs.add(product);
+        hs.add(product);
+        System.out.println("Exist ? = " + hs.contains("44"));
+        System.out.println("Taille = " + hs.size());
+*/
