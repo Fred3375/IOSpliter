@@ -38,6 +38,9 @@ public class Boisson implements Comparable {
         this.price = price;
     }
 
+
+    // NB : la classe implemente une interface !
+    // Sert pour le tri (voir le stream().sorted(Boisson::compareTo).map(Boisson::getName).toList() de la classe UtilBoisson
     @Override
     public int compareTo(Object o) {
         Boisson o1 = (Boisson) o;

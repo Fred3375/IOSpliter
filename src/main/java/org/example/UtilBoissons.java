@@ -16,17 +16,21 @@ public class UtilBoissons implements iListUtils {
         }
 
     }
+
     public ArrayList<Boisson> loadFromFile(String resName) {
-        ArrayList<Boisson> plList = new ArrayList<>();
+        ArrayList<Boisson> plList = new ArrayList<>(); // objet que l'on renverra apres construction
         String l;
-        BufferedReader inFile=null;
+        BufferedReader inFile=null; // handle du fichier (ressource)
 
         try {
+
+            // Ouvrir le fichier ressource -> inFile (Voir la doc des méthodes pour le detail)
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             InputStream inputStream = classloader.getResourceAsStream(resName);
             InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             inFile = new BufferedReader(streamReader);
 
+            // on boucle sur les lignes du fichiers et on ajoute les boissons à l'ArrayList
             while ((l = inFile.readLine()) != null) {
                 String t[] = l.split(";");
                 int id = Integer.parseInt(t[0]);
@@ -39,6 +43,7 @@ public class UtilBoissons implements iListUtils {
             throw new RuntimeException(e);
         } finally {
             if (inFile != null) {
+                // try imbriqué, car on passe toujours ici (finally), or çà peut aussi planter
                 try {
                     inFile.close();
                 } catch (IOException e) {
@@ -53,9 +58,11 @@ public class UtilBoissons implements iListUtils {
     public List<String> getNameListSortedByName(ArrayList<Boisson> plList){
 //        List<String> productListeName;
         List<String> productListeSortedByName;
+        // compareTo est définit dans Boisson
         productListeSortedByName = plList.stream().sorted(Boisson::compareTo).map(Boisson::getName).toList();
         return productListeSortedByName;
 /*
+        // ancienne version contournant la difficulté du sorted(...) mais fonctionnant dans ce cas
         productListeName = plList.stream().map(Product::getName).toList();
         productListeSortedByName = productListeName.stream().sorted().toList();
 */
